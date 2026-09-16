@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap dashboard-shell">
+      <header class="topbar">
+        <a href="dashboard.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Billing center</small>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="dashboard.html" class="nav-link-soft">Dashboard</a>
+          <a href="policy.html" class="nav-link-soft">Policies</a>
+          <a href="addCar.html" class="nav-link-soft">Vehicles</a>
+          <a href="login.html" class="btn-ghost" data-logout-link>Log out</a>
+        </nav>
+      </header>
+
+      <section class="page-head">
+        <div>
+          <span class="section-label">Billing and checkout</span>
+          <h1>Keep premiums visible before the due date arrives.</h1>
+          <p>Present payment information in a way that feels closer to a real insurance portal, even before full checkout integration is built.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <article class="status-card">
+          <span class="section-label">Select policy</span>
+          <h2>Choose which policy this payment belongs to.</h2>
+          <p class="helper-text">Payments are now linked to saved policies, so pick a policy before recording any billing action.</p>
+
+          <div class="vehicle-picker-wrap">
+            <label class="form-label" for="paymentPolicySelect">Saved policy</label>
+            <select id="paymentPolicySelect" class="input-clean">
+              <option value="">Loading your policies...</option>
+            </select>
+            <p id="paymentPolicyHelp" class="helper-text">Choose a policy first if you want payments to appear correctly in history.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="payment-grid">
+        <article class="payment-card">
+          <span class="badge-soft">Upcoming due</span>
+          <h3>Honda City Premium</h3>
+          <div class="price-tag">Rs. 4,650<span class="muted"> quarterly</span></div>
+          <p class="helper-text">Next installment for comprehensive coverage is scheduled on April 05.</p>
+          <div class="stack-actions">
+            <button
+              class="btn-brand payment-action-btn"
+              type="button"
+              data-payment-title="Honda City Premium"
+              data-amount="4650"
+              data-payment-method="Card"
+              data-payment-status="Paid"
+            >
+              Pay now
+            </button>
+          </div>
+        </article>
+
+        <article class="payment-card">
+          <span class="badge-soft">AutoPay</span>
+          <h3>Preferred billing method</h3>
+          <p class="helper-text">Visa ending in 4821 is saved as your default payment method for renewals and installment plans.</p>
+          <div class="stack-actions">
+            <button
+              class="btn-soft payment-action-btn"
+              type="button"
+              data-payment-title="AutoPay Method Update"
+              data-amount="0"
+              data-payment-method="Card"
+              data-payment-status="Updated"
+            >
+              Update method
+            </button>
+          </div>
+        </article>
+
+        <article class="payment-card">
+          <span class="badge-soft">Policy docs</span>
+          <h3>Receipts and invoices</h3>
+          <p class="helper-text">Download statement history, confirm paid premiums, and verify invoice totals for accounting.</p>
+          <div class="stack-actions">
+            <button
+              class="btn-outline-brand payment-action-btn"
+              type="button"
+              data-payment-title="Receipt Request"
+              data-amount="0"
+              data-payment-method="Portal"
+              data-payment-status="Requested"
+            >
+              View receipts
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <article class="status-card">
+        <span class="section-label">Payment overview</span>
+        <div class="status-row">
+          <div class="status-box">
+            <span class="metric-label">Outstanding amount</span>
+            <strong>Rs. 4,650</strong>
+            <p class="helper-text">No late fee has been applied yet.</p>
+          </div>
+          <div class="status-box">
+            <span class="metric-label">Billing cadence</span>
+            <strong>Quarterly</strong>
+            <p class="helper-text">You can switch to annual billing at the next renewal.</p>
+          </div>
+          <div class="status-box">
+            <span class="metric-label">Last successful payment</span>
+            <strong>Mar 02</strong>
+            <p class="helper-text">Processed within 24 seconds through card checkout.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

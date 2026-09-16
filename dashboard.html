@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap dashboard-shell">
+      <header class="topbar">
+        <a href="dashboard.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Insurance dashboard</small>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="addCar.html" class="nav-link-soft">Add vehicle</a>
+          <a href="policy.html" class="nav-link-soft">Policy plans</a>
+          <a href="payment.html" class="nav-link-soft">Payments</a>
+          <a href="login.html" class="btn-ghost" data-logout-link>Log out</a>
+        </nav>
+      </header>
+
+      <section class="page-head">
+        <div>
+          <span class="section-label">Control center</span>
+          <h1>Your fleet snapshot at a glance.</h1>
+          <p>Monitor active vehicles, upcoming renewals, policy decisions, and payment tasks from one organized workspace.</p>
+        </div>
+        <div class="dashboard-actions">
+          <a href="policy.html" class="btn-soft">Review plans</a>
+          <a href="addCar.html" class="btn-brand">Add a vehicle</a>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <span class="metric-label">Active policies</span>
+          <strong id="summaryPolicyCount">0</strong>
+          <p class="helper-text" id="summaryPolicyText">Policies you save will appear here once coverage is selected.</p>
+        </article>
+        <article class="stat-card">
+          <span class="metric-label">Total paid</span>
+          <strong id="summaryTotalPaid">Rs. 0</strong>
+          <p class="helper-text" id="summaryPaymentText">Payments recorded in the billing center will total up here.</p>
+        </article>
+        <article class="stat-card">
+          <span class="metric-label">Registered vehicles</span>
+          <strong id="summaryVehicleCount">0</strong>
+          <p class="helper-text" id="summaryVehicleText">Add a vehicle to start linking policies and payments.</p>
+        </article>
+        <article class="stat-card">
+          <span class="metric-label">Last payment</span>
+          <strong id="summaryLastPaymentDate">None</strong>
+          <p class="helper-text" id="summaryLastPaymentText">Your latest billing activity will be shown here.</p>
+        </article>
+      </section>
+
+      <section class="action-grid">
+        <article class="action-card">
+          <div class="action-icon">A</div>
+          <h3>Add Vehicle</h3>
+          <p class="helper-text">Register a new vehicle profile so quotes and renewals can be generated faster.</p>
+          <div class="stack-actions">
+            <a href="addCar.html" class="btn-brand">Open vehicle form</a>
+          </div>
+        </article>
+
+        <article class="action-card">
+          <div class="action-icon">P</div>
+          <h3>Buy Policy</h3>
+          <p class="helper-text">Compare plan tiers, estimate annual premium, and choose the coverage that fits your usage.</p>
+          <div class="stack-actions">
+            <a href="policy.html" class="btn-accent">View policy options</a>
+          </div>
+        </article>
+
+        <article class="action-card">
+          <div class="action-icon">B</div>
+          <h3>Make Payment</h3>
+          <p class="helper-text">Review current dues, autopay preferences, and secure billing channels before checkout.</p>
+          <div class="stack-actions">
+            <a href="payment.html" class="btn-soft">Go to billing</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <span class="section-label">Saved vehicles</span>
+            <h2>Your registered vehicles</h2>
+          </div>
+          <a href="addCar.html" class="btn-soft">Add another vehicle</a>
+        </div>
+
+        <article class="status-card">
+          <div class="vehicle-list-head">
+            <div>
+              <strong id="vehicleCount">0 vehicles</strong>
+              <p class="helper-text">Vehicles linked to your DriveSure account will appear here.</p>
+            </div>
+          </div>
+
+          <div id="vehicleEmptyState" class="empty-state">
+            <strong>No vehicles added yet.</strong>
+            <p class="helper-text">Add your first vehicle to start quotes, policies, and premium tracking.</p>
+            <div class="stack-actions">
+              <a href="addCar.html" class="btn-brand">Add first vehicle</a>
+            </div>
+          </div>
+
+          <div id="vehicleGrid" class="vehicle-grid"></div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <span class="section-label">Saved policies</span>
+            <h2>Your selected coverage</h2>
+          </div>
+          <a href="policy.html" class="btn-soft">Choose a policy</a>
+        </div>
+
+        <article class="status-card">
+          <div class="vehicle-list-head">
+            <div>
+              <strong id="policyCount">0 policies</strong>
+              <p class="helper-text">Policies you choose will be stored here for dashboard tracking.</p>
+            </div>
+          </div>
+
+          <div id="policyEmptyState" class="empty-state">
+            <strong>No policies saved yet.</strong>
+            <p class="helper-text">Pick a plan to start tracking coverage and billing inside DriveSure.</p>
+            <div class="stack-actions">
+              <a href="policy.html" class="btn-brand">Choose a policy</a>
+            </div>
+          </div>
+
+          <div id="policyGrid" class="vehicle-grid"></div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <span class="section-label">Payment history</span>
+            <h2>Your recent billing activity</h2>
+          </div>
+          <a href="payment.html" class="btn-soft">Open payments</a>
+        </div>
+
+        <article class="status-card">
+          <div class="vehicle-list-head">
+            <div>
+              <strong id="paymentCount">0 payments</strong>
+              <p class="helper-text">Recent payment actions and billing events will appear here.</p>
+            </div>
+          </div>
+
+          <div id="paymentEmptyState" class="empty-state">
+            <strong>No payments recorded yet.</strong>
+            <p class="helper-text">Make a payment or request billing action to start building your payment history.</p>
+            <div class="stack-actions">
+              <a href="payment.html" class="btn-brand">Open billing center</a>
+            </div>
+          </div>
+
+          <div id="paymentGrid" class="vehicle-grid"></div>
+        </article>
+      </section>
+
+      <article class="status-card">
+        <span class="section-label">Operational summary</span>
+        <div class="status-row">
+          <div class="status-box">
+            <span class="metric-label">Roadside add-on</span>
+            <strong>Enabled</strong>
+            <p class="helper-text">Included in the latest comprehensive quote package.</p>
+          </div>
+          <div class="status-box">
+            <span class="metric-label">Digital documents</span>
+            <strong>Synced</strong>
+            <p class="helper-text">Registration and policy records are ready for renewal processing.</p>
+          </div>
+          <div class="status-box">
+            <span class="metric-label">Support priority</span>
+            <strong>Standard</strong>
+            <p class="helper-text">Upgrade available with premium or fleet coverage tiers.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

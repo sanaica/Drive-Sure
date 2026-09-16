@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap auth-shell">
+      <section class="auth-copy">
+        <a href="index.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Simple insurance operations</small>
+          </span>
+        </a>
+        <div class="page-head">
+          <div>
+            <span class="section-label">Start your account</span>
+            <h1>Create a workspace for your vehicles and policies.</h1>
+            <p>
+              Register once to keep your car details, policy choices, and payment activity
+              available from a single dashboard.
+            </p>
+          </div>
+        </div>
+        <div class="note-card">
+          <strong>What you unlock</strong>
+          <ul class="list-clean">
+            <li><span class="dot"></span><span>Save vehicle information for faster future insurance actions.</span></li>
+            <li><span class="dot"></span><span>Compare policy tiers before purchasing or renewing.</span></li>
+            <li><span class="dot"></span><span>Track billing activity and due dates from one account.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <span class="pill">New customer setup</span>
+        <h2>Register your profile</h2>
+        <p class="helper-text">Use your primary email so policy alerts and payment updates reach the right inbox.</p>
+
+        <form id="registerForm">
+          <div class="input-group-clean">
+            <label class="form-label" for="name">Full name</label>
+            <input type="text" id="name" class="input-clean" placeholder="Priya Sharma" required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="email">Email address</label>
+            <input type="email" id="email" class="input-clean" placeholder="name@example.com" required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" class="input-clean" placeholder="Create a secure password" required>
+          </div>
+
+          <div class="helper-row">
+            <span class="helper-text">You can log in immediately after registering.</span>
+            <a href="login.html" class="nav-link-soft">Already have an account?</a>
+          </div>
+
+          <button class="btn-accent" type="submit" style="width: 100%;">Create account</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

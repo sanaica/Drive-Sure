@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policy Plans | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap dashboard-shell">
+      <header class="topbar">
+        <a href="dashboard.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Coverage planning</small>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="dashboard.html" class="nav-link-soft">Dashboard</a>
+          <a href="addCar.html" class="nav-link-soft">Vehicles</a>
+          <a href="payment.html" class="nav-link-soft">Billing</a>
+          <a href="login.html" class="btn-ghost" data-logout-link>Log out</a>
+        </nav>
+      </header>
+
+      <section class="page-head">
+        <div>
+          <span class="section-label">Choose a plan</span>
+          <h1>Coverage tiers designed for different driving needs.</h1>
+          <p>Use these sample packages to guide your purchase flow and present policy options more realistically in the UI.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <article class="status-card">
+          <span class="section-label">Select vehicle</span>
+          <h2>Choose which vehicle this policy should cover.</h2>
+          <p class="helper-text">Policies are now linked to a saved vehicle, so select a registered car before choosing a plan.</p>
+
+          <div class="vehicle-picker-wrap">
+            <label class="form-label" for="policyVehicleSelect">Registered vehicle</label>
+            <select id="policyVehicleSelect" class="input-clean">
+              <option value="">Loading your vehicles...</option>
+            </select>
+            <p id="policyVehicleHelp" class="helper-text">Add a vehicle first if you do not see one listed here.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="policy-grid">
+        <article class="policy-card">
+          <span class="badge-soft">Entry cover</span>
+          <h3>Essential Third-Party</h3>
+          <div class="price-tag">Rs. 6,900<span class="muted"> / year</span></div>
+          <p class="helper-text">For drivers who need mandatory protection and a clean, low-cost baseline.</p>
+          <ul class="list-clean">
+            <li><span class="dot"></span><span>Third-party liability coverage</span></li>
+            <li><span class="dot"></span><span>Basic legal compliance support</span></li>
+            <li><span class="dot"></span><span>Email policy documents</span></li>
+          </ul>
+          <div class="stack-actions">
+            <button
+              class="btn-soft policy-select-btn"
+              type="button"
+              data-plan-name="Essential Third-Party"
+              data-coverage-type="Third-Party"
+              data-premium-amount="6900"
+              data-billing-cycle="Yearly"
+            >
+              Select plan
+            </button>
+          </div>
+        </article>
+
+        <article class="policy-card">
+          <span class="badge-soft">Most popular</span>
+          <h3>Comprehensive Plus</h3>
+          <div class="price-tag">Rs. 18,600<span class="muted"> / year</span></div>
+          <p class="helper-text">Balanced protection for daily use, theft risk, own-damage cover, and quicker service handling.</p>
+          <ul class="list-clean">
+            <li><span class="dot"></span><span>Own-damage and third-party cover</span></li>
+            <li><span class="dot"></span><span>Roadside assistance included</span></li>
+            <li><span class="dot"></span><span>Zero depreciation add-on option</span></li>
+          </ul>
+          <div class="stack-actions">
+            <button
+              class="btn-brand policy-select-btn"
+              type="button"
+              data-plan-name="Comprehensive Plus"
+              data-coverage-type="Comprehensive"
+              data-premium-amount="18600"
+              data-billing-cycle="Yearly"
+            >
+              Choose this plan
+            </button>
+          </div>
+        </article>
+
+        <article class="policy-card">
+          <span class="badge-soft">Business ready</span>
+          <h3>Premium Fleet Protect</h3>
+          <div class="price-tag">Rs. 31,500<span class="muted"> / year</span></div>
+          <p class="helper-text">Built for high-usage vehicles, priority support, and stronger downtime protection.</p>
+          <ul class="list-clean">
+            <li><span class="dot"></span><span>Priority claims routing</span></li>
+            <li><span class="dot"></span><span>Return-to-invoice cover</span></li>
+            <li><span class="dot"></span><span>Dedicated fleet support window</span></li>
+          </ul>
+          <div class="stack-actions">
+            <button
+              class="btn-accent policy-select-btn"
+              type="button"
+              data-plan-name="Premium Fleet Protect"
+              data-coverage-type="Fleet"
+              data-premium-amount="31500"
+              data-billing-cycle="Yearly"
+            >
+              Upgrade coverage
+            </button>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

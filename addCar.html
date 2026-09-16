@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Vehicle | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap form-shell">
+      <section class="page-copy">
+        <a href="dashboard.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Vehicle onboarding</small>
+          </span>
+        </a>
+        <div class="page-head">
+          <div>
+            <span class="section-label">Vehicle profile</span>
+            <h1>Add a vehicle before quoting or renewing coverage.</h1>
+            <p>Save the basics once so the dashboard can reuse them for policy comparison and premium calculation.</p>
+          </div>
+        </div>
+        <div class="stack-actions">
+          <a href="dashboard.html" class="btn-soft">Back to dashboard</a>
+          <a href="login.html" class="btn-ghost" data-logout-link>Log out</a>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <span class="pill">Profile setup</span>
+        <h2>Vehicle details</h2>
+        <p class="helper-text">Enter the core details exactly as they appear in your records.</p>
+
+        <form id="carForm">
+          <div class="input-group-clean">
+            <label class="form-label" for="vehicleType">Vehicle type</label>
+            <select id="vehicleType" class="input-clean" required>
+              <option value="">Select type</option>
+              <option value="Car">Car</option>
+              <option value="Bike">Bike</option>
+              <option value="Scooter">Scooter</option>
+              <option value="Truck">Truck</option>
+            </select>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="plateNo">Plate number</label>
+            <input type="text" id="plateNo" class="input-clean" placeholder="MH 04 JW 1392" required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="make">Make</label>
+            <input type="text" id="make" class="input-clean" placeholder="Honda" required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="model">Model</label>
+            <input type="text" id="model" class="input-clean" placeholder="City" required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="year">Registration year</label>
+            <input type="number" id="year" class="input-clean" placeholder="2022" min="1900" max="2099" required>
+          </div>
+
+          <div class="stack-actions">
+            <button class="btn-brand" type="submit" style="width: 100%;">Save vehicle</button>
+            <a href="dashboard.html" class="btn-soft" style="width: 100%;">Back to dashboard</a>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
