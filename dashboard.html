@@ -21,6 +21,7 @@
           <a href="addCar.html" class="nav-link-soft">Add vehicle</a>
           <a href="policy.html" class="nav-link-soft">Policy plans</a>
           <a href="payment.html" class="nav-link-soft">Payments</a>
+          <a href="claim.html" class="nav-link-soft">File Claim</a>
           <a href="login.html" class="btn-ghost" data-logout-link>Log out</a>
         </nav>
       </header>
@@ -85,6 +86,15 @@
           <p class="helper-text">Review current dues, autopay preferences, and secure billing channels before checkout.</p>
           <div class="stack-actions">
             <a href="payment.html" class="btn-soft">Go to billing</a>
+          </div>
+        </article>
+
+        <article class="action-card">
+          <div class="action-icon">C</div>
+          <h3>File a Claim</h3>
+          <p class="helper-text">Report an incident, upload damage photos, and submit your garage bills.</p>
+          <div class="stack-actions">
+            <a href="claim.html" class="btn-brand">Start a claim</a>
           </div>
         </article>
       </section>
@@ -173,6 +183,35 @@
           </div>
 
           <div id="paymentGrid" class="vehicle-grid"></div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <span class="section-label">Claims history</span>
+            <h2>Your recent claims</h2>
+          </div>
+          <a href="claim.html" class="btn-soft">File a claim</a>
+        </div>
+
+        <article class="status-card">
+          <div class="vehicle-list-head">
+            <div>
+              <strong id="claimCount">0 claims</strong>
+              <p class="helper-text">Claims filed against your policies will appear here.</p>
+            </div>
+          </div>
+
+          <div id="claimEmptyState" class="empty-state">
+            <strong>No claims filed yet.</strong>
+            <p class="helper-text">If you have an accident, you can file a claim and track its status here.</p>
+            <div class="stack-actions">
+              <a href="claim.html" class="btn-brand">File a claim</a>
+            </div>
+          </div>
+
+          <div id="claimGrid" class="vehicle-grid"></div>
         </article>
       </section>
 

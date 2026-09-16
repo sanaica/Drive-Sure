@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File a Claim | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap form-shell">
+      <section class="page-copy">
+        <a href="dashboard.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Claims Center</small>
+          </span>
+        </a>
+        <div class="page-head">
+          <div>
+            <span class="section-label">Report Incident</span>
+            <h1>File an accident claim to get back on the road.</h1>
+            <p>Provide the incident details and upload evidence like car damage photos and garage bills.</p>
+          </div>
+        </div>
+        <div class="stack-actions">
+          <a href="dashboard.html" class="btn-soft">Back to dashboard</a>
+          <a href="login.html" class="btn-ghost" data-logout-link>Log out</a>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <span class="pill">Incident Details</span>
+        <h2>Claim form</h2>
+        <p class="helper-text">Please provide accurate details so our system can process your claim quickly.</p>
+
+        <form id="claimForm" enctype="multipart/form-data">
+          <div class="input-group-clean">
+            <label class="form-label" for="claimPolicySelect">Select policy</label>
+            <select id="claimPolicySelect" class="input-clean" required>
+              <option value="">Loading policies...</option>
+            </select>
+            <p id="claimPolicyHelp" class="helper-text">Select the active policy under which you are claiming.</p>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="incidentDate">Date of incident</label>
+            <input type="date" id="incidentDate" class="input-clean" required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="incidentType">Incident type</label>
+            <select id="incidentType" class="input-clean" required>
+              <option value="">Select type</option>
+              <option value="Collision">Collision</option>
+              <option value="Theft">Theft</option>
+              <option value="Weather">Weather/Natural Disaster</option>
+              <option value="Vandalism">Vandalism</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="incidentLocation">Location of incident</label>
+            <input type="text" id="incidentLocation" class="input-clean" placeholder="Street name, City" required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="incidentCasualty">Casualty or Injuries</label>
+            <input type="text" id="incidentCasualty" class="input-clean" placeholder="None, minor injuries, etc." required>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="claimDescription">Description of incident</label>
+            <textarea id="claimDescription" class="input-clean" placeholder="Briefly describe what happened..." required rows="3"></textarea>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="damagePics">Damage Pictures</label>
+            <input type="file" id="damagePics" class="input-clean" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple required>
+            <p class="helper-text">Upload photos showing the vehicle damage.</p>
+          </div>
+
+          <div class="input-group-clean">
+            <label class="form-label" for="garageInvoices">Garage Invoices</label>
+            <input type="file" id="garageInvoices" class="input-clean" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple required>
+            <p class="helper-text">Upload repair estimates or invoices.</p>
+          </div>
+
+          <div class="stack-actions">
+            <button class="btn-brand" type="submit" style="width: 100%;">Submit Claim</button>
+            <a href="dashboard.html" class="btn-soft" style="width: 100%;">Cancel</a>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="claims.js"></script>
+</body>
+</html>

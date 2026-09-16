@@ -1,4 +1,4 @@
-const DEFAULT_API_BASE = "https://drive-sure-5gwr.onrender.com";
+const DEFAULT_API_BASE = "http://localhost/Drive-Sure/api";
 
 function normalizeApiBase(value) {
   return typeof value === "string" ? value.replace(/\/+$/, "") : "";
@@ -153,12 +153,16 @@ async function sendRequest(path, options) {
     let response;
 
     try {
-      response = await fetch(`${apiBase}${path}`, {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        ...options
-      });
+      const isFormData = options?.body instanceof FormData;
+      const headers = isFormData ? {} : { "Content-Type": "application/json" };
+      
+      if (options?.headers) {
+        Object.assign(headers, options.headers);
+      }
+
+      const fetchOptions = { ...options, headers };
+      
+      response = await fetch(`${apiBase}${path}`, fetchOptions);
     } catch (_error) {
       lastError = new Error(`Cannot reach the DriveSure backend at ${apiBase}.`);
       continue;
