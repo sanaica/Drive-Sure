@@ -94,6 +94,16 @@ CREATE TABLE IF NOT EXISTS UPLOADED_EVIDENCE (
     claim_id INT,
     file_path VARCHAR(255),
     file_category VARCHAR(50),
+    confidence_score INT DEFAULT NULL,
+    is_blurry TINYINT(1) DEFAULT NULL,
+    has_exif TINYINT(1) DEFAULT NULL,
+    camera_make VARCHAR(100) DEFAULT NULL,
+    camera_model VARCHAR(100) DEFAULT NULL,
+    software VARCHAR(150) DEFAULT NULL,
+    exif_timestamp DATETIME DEFAULT NULL,
+    exif_latitude DECIMAL(10,7) DEFAULT NULL,
+    exif_longitude DECIMAL(10,7) DEFAULT NULL,
+    analysis_notes TEXT DEFAULT NULL,
     FOREIGN KEY (claim_id) REFERENCES CLAIMS(claim_id) ON DELETE CASCADE
 );
 

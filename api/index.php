@@ -29,6 +29,100 @@ function sendResponse($statusCode, $data) {
     exit;
 }
 
+/**
+ * Run Python EXIF analyzer on an uploaded file.
+ * Returns associative array with confidence_score, notes, etc.
+ */
+function analyzeEvidenceFile($absolutePath, $incidentDate = null) {
+    $script = __DIR__ . DIRECTORY_SEPARATOR . 'analyze_evidence.py';
+    if (!file_exists($script)) {
+        return [
+            'confidence_score' => null,
+            'notes' => ['Analyzer script missing']
+        ];
+    }
+
+    $pythonCandidates = ['python', 'python3', 'py'];
+    $cmdBase = null;
+    foreach ($pythonCandidates as $bin) {
+        // Windows-friendly: just try the name
+        $cmdBase = $bin;
+        break;
+    }
+
+    $pathArg = escapeshellarg($absolutePath);
+    $dateArg = $incidentDate ? ' ' . escapeshellarg($incidentDate) : '';
+    // Prefer `py -3` on Windows if available
+    $commands = [
+        "py -3 " . escapeshellarg($script) . " $pathArg$dateArg 2>&1",
+        "python " . escapeshellarg($script) . " $pathArg$dateArg 2>&1",
+        "python3 " . escapeshellarg($script) . " $pathArg$dateArg 2>&1",
+    ];
+
+    $output = null;
+    foreach ($commands as $cmd) {
+        $output = shell_exec($cmd);
+        if ($output && trim($output) !== '') {
+            break;
+        }
+    }
+
+    if (!$output) {
+        return [
+            'confidence_score' => null,
+            'notes' => ['Could not run Python analyzer. Install Python + Pillow (pip install Pillow).']
+        ];
+    }
+
+    // Find JSON object in output (ignore warnings printed before it)
+    $jsonStart = strpos($output, '{');
+    if ($jsonStart === false) {
+        return [
+            'confidence_score' => null,
+            'notes' => ['Analyzer returned non-JSON: ' . substr(trim($output), 0, 200)]
+        ];
+    }
+
+    $decoded = json_decode(substr($output, $jsonStart), true);
+    if (!is_array($decoded)) {
+        return [
+            'confidence_score' => null,
+            'notes' => ['Failed to parse analyzer output']
+        ];
+    }
+    return $decoded;
+}
+
+function saveEvidenceWithAnalysis($pdo, $claimId, $relativePath, $category, $absolutePath, $incidentDate) {
+    $analysis = analyzeEvidenceFile($absolutePath, $incidentDate);
+
+    $score   = isset($analysis['confidence_score']) ? (int)$analysis['confidence_score'] : null;
+    $blurry  = array_key_exists('is_blurry', $analysis) && $analysis['is_blurry'] !== null
+        ? ($analysis['is_blurry'] ? 1 : 0) : null;
+    $hasExif = array_key_exists('has_exif', $analysis) && $analysis['has_exif'] !== null
+        ? ($analysis['has_exif'] ? 1 : 0) : null;
+    $make    = $analysis['camera_make'] ?? null;
+    $model   = $analysis['camera_model'] ?? null;
+    $soft    = $analysis['software'] ?? null;
+    $ts      = $analysis['exif_timestamp'] ?? null;
+    $lat     = $analysis['exif_latitude'] ?? null;
+    $lon     = $analysis['exif_longitude'] ?? null;
+    $notes   = isset($analysis['notes']) && is_array($analysis['notes'])
+        ? implode('; ', $analysis['notes'])
+        : ($analysis['notes'] ?? null);
+
+    $stmt = $pdo->prepare(
+        'INSERT INTO UPLOADED_EVIDENCE
+         (claim_id, file_path, file_category, confidence_score, is_blurry, has_exif,
+          camera_make, camera_model, software, exif_timestamp, exif_latitude, exif_longitude, analysis_notes)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    );
+    $stmt->execute([
+        $claimId, $relativePath, $category, $score, $blurry, $hasExif,
+        $make, $model, $soft, $ts, $lat, $lon, $notes
+    ]);
+}
+
 try {
 
     // =========================================================
@@ -294,10 +388,8 @@ try {
                     $safe = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($names[$i]));
                     $path = $upload_dir . $safe;
                     if (move_uploaded_file($tmps[$i], $path)) {
-                        $stmt = $pdo->prepare(
-                            'INSERT INTO UPLOADED_EVIDENCE (claim_id, file_path, file_category) VALUES (?, ?, ?)'
-                        );
-                        $stmt->execute([$claim_id, 'uploads/' . $safe, 'Damage Picture']);
+                        $abs = realpath($path) ?: $path;
+                        saveEvidenceWithAnalysis($pdo, $claim_id, 'uploads/' . $safe, 'Damage Picture', $abs, $incident_date);
                     }
                 }
             }
@@ -315,10 +407,8 @@ try {
                     $safe = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($names[$i]));
                     $path = $upload_dir . $safe;
                     if (move_uploaded_file($tmps[$i], $path)) {
-                        $stmt = $pdo->prepare(
-                            'INSERT INTO UPLOADED_EVIDENCE (claim_id, file_path, file_category) VALUES (?, ?, ?)'
-                        );
-                        $stmt->execute([$claim_id, 'uploads/' . $safe, 'Garage Invoice']);
+                        $abs = realpath($path) ?: $path;
+                        saveEvidenceWithAnalysis($pdo, $claim_id, 'uploads/' . $safe, 'Garage Invoice', $abs, $incident_date);
                     }
                 }
             }
@@ -373,7 +463,9 @@ try {
 
         // Attach evidence files for each claim
         $evStmt = $pdo->prepare(
-            'SELECT image_id, file_path, file_category FROM UPLOADED_EVIDENCE WHERE claim_id = ?'
+            'SELECT image_id, file_path, file_category, confidence_score, is_blurry, has_exif,
+                    camera_make, camera_model, software, exif_timestamp, exif_latitude, exif_longitude, analysis_notes
+             FROM UPLOADED_EVIDENCE WHERE claim_id = ?'
         );
         foreach ($claims as &$claim) {
             $evStmt->execute([$claim['claim_id']]);

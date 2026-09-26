@@ -683,6 +683,14 @@ function isImageFile(filePath) {
   return /\.(jpe?g|png|gif|webp|bmp)$/i.test(filePath || "");
 }
 
+function scoreClass(score) {
+  if (score == null || score === "") return "score-unknown";
+  const n = Number(score);
+  if (n >= 70) return "score-high";
+  if (n >= 45) return "score-mid";
+  return "score-low";
+}
+
 function buildEvidenceHtml(evidence) {
   if (!evidence || evidence.length === 0) {
     return `<div class="evidence-block"><p class="evidence-empty">No files uploaded for this claim.</p></div>`;
@@ -691,17 +699,47 @@ function buildEvidenceHtml(evidence) {
   const items = evidence.map((ev) => {
     const url = getEvidenceUrl(ev.file_path);
     const label = ev.file_category || "File";
-    if (isImageFile(ev.file_path)) {
-      return `<a href="${url}" target="_blank" rel="noopener" title="${label}">
-        <img class="evidence-thumb" src="${url}" alt="${label}" onerror="this.style.display='none'">
-      </a>`;
+    const score = ev.confidence_score;
+    const scoreLabel = score != null && score !== "" ? `${score}/100` : "N/A";
+    const sc = scoreClass(score);
+
+    const metaBits = [];
+    if (ev.has_exif == 1 || ev.has_exif === true) metaBits.push("EXIF");
+    if (ev.camera_make || ev.camera_model) {
+      metaBits.push(`${ev.camera_make || ""} ${ev.camera_model || ""}`.trim());
     }
-    return `<a class="evidence-link" href="${url}" target="_blank" rel="noopener">${label}<br>Open file</a>`;
+    if (ev.exif_timestamp) metaBits.push(String(ev.exif_timestamp).slice(0, 16));
+    if (ev.is_blurry == 1 || ev.is_blurry === true) metaBits.push("Blurry");
+    if (ev.exif_latitude && ev.exif_longitude) {
+      metaBits.push(`GPS ${ev.exif_latitude}, ${ev.exif_longitude}`);
+    }
+
+    const notes = ev.analysis_notes ? String(ev.analysis_notes) : "";
+    const notesShort = notes.length > 120 ? notes.slice(0, 120) + "…" : notes;
+    const notesAttr = notes.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+
+    const preview = isImageFile(ev.file_path)
+      ? `<a href="${url}" target="_blank" rel="noopener" title="${label}">
+           <img class="evidence-thumb" src="${url}" alt="${label}" onerror="this.style.display='none'">
+         </a>`
+      : `<a class="evidence-link" href="${url}" target="_blank" rel="noopener">${label}<br>Open file</a>`;
+
+    return `
+      <div class="evidence-card">
+        ${preview}
+        <div class="evidence-meta">
+          <span class="score-badge ${sc}">Confidence ${scoreLabel}</span>
+          <span class="evidence-cat">${label}</span>
+          ${metaBits.length ? `<span class="evidence-detail">${metaBits.join(" · ")}</span>` : ""}
+          ${notes ? `<span class="evidence-notes" title="${notesAttr}">${notesShort}</span>` : ""}
+        </div>
+      </div>
+    `;
   }).join("");
 
   return `
     <div class="evidence-block">
-      <strong>Uploaded evidence</strong>
+      <strong>Uploaded evidence + EXIF check</strong>
       <div class="evidence-gallery">${items}</div>
     </div>
   `;

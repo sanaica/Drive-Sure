@@ -630,3 +630,57 @@ textarea.input-clean {
   color: var(--muted);
   font-size: 0.9rem;
 }
+
+.evidence-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 160px;
+}
+
+.evidence-meta {
+  display: grid;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.evidence-cat {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.evidence-detail,
+.evidence-notes {
+  line-height: 1.35;
+}
+
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.score-high {
+  background: rgba(43, 147, 72, 0.15);
+  color: #1b7a32;
+}
+
+.score-mid {
+  background: rgba(242, 143, 59, 0.18);
+  color: #b45309;
+}
+
+.score-low {
+  background: rgba(193, 18, 31, 0.12);
+  color: #9b0c16;
+}
+
+.score-unknown {
+  background: rgba(20, 32, 51, 0.08);
+  color: var(--muted);
+}
