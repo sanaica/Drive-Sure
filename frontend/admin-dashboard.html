@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap dashboard-shell">
+      <header class="topbar">
+        <a href="admin-dashboard.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Admin – Claims</small>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="admin-dashboard.html" class="nav-link-soft">Claims</a>
+          <a href="admin-login.html" class="btn-ghost" data-admin-logout>Log out</a>
+        </nav>
+      </header>
+
+      <section class="page-head">
+        <div>
+          <span class="section-label">Claim review</span>
+          <h1>Approve or reject customer claims.</h1>
+          <p>Filter by name, plan, status or date. Open uploaded photos and invoices on each card.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <article class="status-card" style="margin-bottom: 22px;">
+          <span class="section-label">Filters</span>
+          <h2 style="margin-top: 6px; margin-bottom: 16px;">Find claims quickly</h2>
+          <div class="filter-row">
+            <div class="input-group-clean" style="margin-bottom: 0;">
+              <label class="form-label" for="filterName">Customer name / email</label>
+              <input type="text" id="filterName" class="input-clean" placeholder="e.g. Sanaica or gmail.com">
+            </div>
+            <div class="input-group-clean" style="margin-bottom: 0;">
+              <label class="form-label" for="filterPlan">Plan / subscription</label>
+              <select id="filterPlan" class="input-clean">
+                <option value="">All plans</option>
+              </select>
+            </div>
+            <div class="input-group-clean" style="margin-bottom: 0;">
+              <label class="form-label" for="filterStatus">Status</label>
+              <select id="filterStatus" class="input-clean">
+                <option value="">All statuses</option>
+                <option value="Pending Review">Pending Review</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="input-group-clean" style="margin-bottom: 0;">
+              <label class="form-label" for="filterDateFrom">Filed from</label>
+              <input type="date" id="filterDateFrom" class="input-clean">
+            </div>
+            <div class="input-group-clean" style="margin-bottom: 0;">
+              <label class="form-label" for="filterDateTo">Filed to</label>
+              <input type="date" id="filterDateTo" class="input-clean">
+            </div>
+            <div class="input-group-clean" style="margin-bottom: 0; display: flex; align-items: end;">
+              <button type="button" id="filterClearBtn" class="btn-soft" style="width: 100%;">Clear filters</button>
+            </div>
+          </div>
+        </article>
+
+        <div class="section-head">
+          <div>
+            <span class="section-label">All claims</span>
+            <h2>Claims queue</h2>
+          </div>
+        </div>
+
+        <article class="status-card">
+          <div class="vehicle-list-head">
+            <div>
+              <strong id="adminClaimCount">0 claims</strong>
+              <p class="helper-text">Newest and pending items are listed first.</p>
+            </div>
+          </div>
+
+          <div id="adminClaimEmpty" class="empty-state hidden">
+            <strong>No claims match these filters.</strong>
+            <p class="helper-text">Try clearing filters or wait for new claims.</p>
+          </div>
+
+          <div id="adminClaimGrid" class="vehicle-grid"></div>
+        </article>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap dashboard-shell">
+      <header class="topbar">
+        <a href="dashboard.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Billing center</small>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="dashboard.html" class="nav-link-soft">Dashboard</a>
+          <a href="policy.html" class="nav-link-soft">Policies</a>
+          <a href="addCar.html" class="nav-link-soft">Vehicles</a>
+          <a href="login.html" class="btn-ghost" data-logout-link>Log out</a>
+        </nav>
+      </header>
+
+      <section class="page-head">
+        <div>
+          <span class="section-label">Billing and checkout</span>
+          <h1>Record a payment against a policy.</h1>
+          <p>Select a policy first, then use one of the sample payment actions below.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <article class="status-card">
+          <span class="section-label">Select policy</span>
+          <h2>Which policy is this payment for?</h2>
+          <div class="vehicle-picker-wrap">
+            <label class="form-label" for="paymentPolicySelect">Saved policy</label>
+            <select id="paymentPolicySelect" class="input-clean">
+              <option value="">Loading your policies...</option>
+            </select>
+            <p id="paymentPolicyHelp" class="helper-text">Choose a policy so the payment appears in history.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="payment-grid">
+        <article class="payment-card">
+          <span class="badge-soft">Premium due</span>
+          <h3>Pay premium</h3>
+          <div class="price-tag">Rs. 4,650</div>
+          <p class="helper-text">Sample installment amount. Select a policy then click Pay now.</p>
+          <div class="stack-actions">
+            <button class="btn-brand payment-action-btn" type="button"
+              data-payment-title="Premium payment"
+              data-amount="4650"
+              data-payment-method="Card"
+              data-payment-status="Paid">
+              Pay now
+            </button>
+          </div>
+        </article>
+
+        <article class="payment-card">
+          <span class="badge-soft">AutoPay</span>
+          <h3>Update method</h3>
+          <p class="helper-text">Record that the preferred payment method was updated.</p>
+          <div class="stack-actions">
+            <button class="btn-soft payment-action-btn" type="button"
+              data-payment-title="AutoPay Method Update"
+              data-amount="0"
+              data-payment-method="Card"
+              data-payment-status="Updated">
+              Update method
+            </button>
+          </div>
+        </article>
+
+        <article class="payment-card">
+          <span class="badge-soft">Receipts</span>
+          <h3>Request receipt</h3>
+          <p class="helper-text">Log a receipt request against the selected policy.</p>
+          <div class="stack-actions">
+            <button class="btn-outline-brand payment-action-btn" type="button"
+              data-payment-title="Receipt Request"
+              data-amount="0"
+              data-payment-method="Portal"
+              data-payment-status="Requested">
+              View receipts
+            </button>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,4 +1,7 @@
 <?php
+// Database connection for DriveSure
+// XAMPP default: user = root, password = (empty)
+
 $host = 'localhost';
 $dbname = 'drivesure_db';
 $user = 'root';
@@ -11,7 +14,10 @@ try {
 } catch (PDOException $e) {
     header('Content-Type: application/json');
     http_response_code(500);
-    echo json_encode(['error' => 'Database connection failed', 'details' => $e->getMessage()]);
+    echo json_encode([
+        'error' => 'Database connection failed',
+        'details' => $e->getMessage()
+    ]);
     exit;
 }
 ?>

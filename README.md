@@ -1,16 +1,121 @@
-# Drive-Sure
-Drive Sure is an application for users to log accidents, upload damage photos, and submit repair bills. It manages current claims while setting the stage for future AI RAG analysis and visual fraud detection.
+# DriveSure – Simple Vehicle Insurance App
 
-## Setup Instructions (Local XAMPP Environment)
+A small XAMPP (PHP + MySQL) project where:
 
-1. **Start XAMPP Control Panel**: Ensure that both **Apache** and **MySQL** modules are running.
-2. **Database Setup**:
-   - The database schema is already created in the `drivesure_db` database via the `schema.sql` file.
-   - If you need to recreate it, you can import `schema.sql` into phpMyAdmin (accessible at `http://localhost/phpmyadmin/`).
-3. **Application Location**:
-   - Make sure this `Drive-Sure` folder is placed inside `C:\xampp\htdocs\`.
-4. **Access the App**:
-   - Open your browser and navigate to `http://localhost/Drive-Sure/index.html`.
-5. **API Configuration**:
-   - The application is now configured to use the local PHP API endpoints located in the `api/` folder.
-   - `script.js` has been updated to use `http://localhost/Drive-Sure/api` as the base URL.
+- **Customers** register, add vehicles, choose an insurance plan, pay premiums, and file claims (with photo/invoice upload).
+- **Admins** log in and approve or reject claims.
+
+Stack: **HTML, CSS, JavaScript, PHP, MySQL** only. No frameworks.
+
+---
+
+## Folder structure
+
+```
+Drive-Sure/
+├── frontend/          ← All HTML, CSS, JS (what you open in the browser)
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── addCar.html
+│   ├── policy.html
+│   ├── payment.html
+│   ├── claim.html
+│   ├── admin-login.html
+│   ├── admin-dashboard.html
+│   ├── style.css
+│   ├── script.js
+│   └── claims.js
+│
+├── api/               ← PHP backend (JSON API)
+│   ├── index.php      ← All routes
+│   ├── db.php         ← Database connection
+│   └── .htaccess      ← Pretty URLs
+│
+├── database/
+│   └── schema.sql     ← Create tables + default admin
+│
+├── uploads/           ← Claim photos/invoices (created automatically)
+│
+└── README.md
+```
+
+---
+
+## Setup (XAMPP)
+
+1. **Start XAMPP**  
+   Start **Apache** and **MySQL**.
+
+2. **Put the project in htdocs**  
+   Copy the whole `Drive-Sure` folder to:
+   ```
+   C:\xampp\htdocs\Drive-Sure
+   ```
+
+3. **Create the database**  
+   - Open http://localhost/phpmyadmin  
+   - Import `database/schema.sql`  
+   - Or run the SQL in the SQL tab.
+
+4. **Default admin account** (created by schema.sql)  
+   - Email: `admin@drivesure.com`  
+   - Password: `admin123`
+
+5. **Open the app**  
+   - Customer: http://localhost/Drive-Sure/frontend/login.html  
+   - Admin:    http://localhost/Drive-Sure/frontend/admin-login.html  
+
+The frontend talks to the API at:
+```
+http://localhost/Drive-Sure/api
+```
+(This is set in `script.js` as `DEFAULT_API_BASE`.)
+
+---
+
+## How the flow works
+
+### Customer
+1. Register → Login  
+2. **Add vehicle** (make, model, plate, year)  
+3. **Choose policy** (link a plan to a vehicle)  
+4. Optionally **record a payment**  
+5. **File a claim** (pick policy, incident details, upload damage pics + invoices)  
+6. See claim status on the dashboard (Pending / Approved / Rejected)
+
+### Admin
+1. Login at admin-login.html  
+2. See all claims (pending first)  
+3. **Approve** or **Reject** (optional short note)  
+4. Customer sees the updated status on their dashboard
+
+---
+
+## API endpoints (simple overview)
+
+| Method | Route                    | Who      | Purpose                    |
+|--------|--------------------------|----------|----------------------------|
+| POST   | /auth/register           | Customer | Register                   |
+| POST   | /auth/login              | Customer | Login                      |
+| POST   | /admin/login             | Admin    | Admin login                |
+| GET    | /vehicles/{customer_id}  | Customer | List vehicles              |
+| POST   | /vehicles                | Customer | Add vehicle                |
+| GET    | /policies/{customer_id}  | Customer | List policies              |
+| POST   | /policies                | Customer | Select plan                |
+| GET    | /payments/{customer_id}  | Customer | List payments              |
+| POST   | /payments                | Customer | Record payment             |
+| GET    | /claims/{customer_id}    | Customer | List own claims            |
+| POST   | /claims                  | Customer | File claim (multipart)     |
+| GET    | /admin/claims            | Admin    | List all claims            |
+| POST   | /admin/claims/update     | Admin    | Approve / Reject           |
+
+---
+
+## Notes
+
+- Keep it simple: no JWT, sessions are stored in browser `localStorage`.
+- Uploaded files go into `Drive-Sure/uploads/`.
+- Change the admin password after first use in real deployments.
+- If the API is not found, check that Apache is running and the path in `script.js` matches your folder name.

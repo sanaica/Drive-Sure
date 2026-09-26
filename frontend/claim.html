@@ -19,9 +19,9 @@
         </a>
         <div class="page-head">
           <div>
-            <span class="section-label">Report Incident</span>
-            <h1>File an accident claim to get back on the road.</h1>
-            <p>Provide the incident details and upload evidence like car damage photos and garage bills.</p>
+            <span class="section-label">Report incident</span>
+            <h1>File an accident claim.</h1>
+            <p>Provide incident details and upload damage photos and garage bills. An admin will review it.</p>
           </div>
         </div>
         <div class="stack-actions">
@@ -31,9 +31,9 @@
       </section>
 
       <section class="form-card">
-        <span class="pill">Incident Details</span>
+        <span class="pill">Incident details</span>
         <h2>Claim form</h2>
-        <p class="helper-text">Please provide accurate details so our system can process your claim quickly.</p>
+        <p class="helper-text">Fill in accurate details so the claim can be processed quickly.</p>
 
         <form id="claimForm" enctype="multipart/form-data">
           <div class="input-group-clean">
@@ -55,7 +55,7 @@
               <option value="">Select type</option>
               <option value="Collision">Collision</option>
               <option value="Theft">Theft</option>
-              <option value="Weather">Weather/Natural Disaster</option>
+              <option value="Weather">Weather / Natural Disaster</option>
               <option value="Vandalism">Vandalism</option>
               <option value="Other">Other</option>
             </select>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="input-group-clean">
-            <label class="form-label" for="incidentCasualty">Casualty or Injuries</label>
+            <label class="form-label" for="incidentCasualty">Casualty or injuries</label>
             <input type="text" id="incidentCasualty" class="input-clean" placeholder="None, minor injuries, etc." required>
           </div>
 
@@ -77,19 +77,19 @@
           </div>
 
           <div class="input-group-clean">
-            <label class="form-label" for="damagePics">Damage Pictures</label>
-            <input type="file" id="damagePics" class="input-clean" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple required>
+            <label class="form-label" for="damagePics">Damage pictures</label>
+            <input type="file" id="damagePics" class="input-clean" accept="image/*,.pdf" multiple required>
             <p class="helper-text">Upload photos showing the vehicle damage.</p>
           </div>
 
           <div class="input-group-clean">
-            <label class="form-label" for="garageInvoices">Garage Invoices</label>
-            <input type="file" id="garageInvoices" class="input-clean" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple required>
+            <label class="form-label" for="garageInvoices">Garage invoices</label>
+            <input type="file" id="garageInvoices" class="input-clean" accept="image/*,.pdf,.doc,.docx" multiple required>
             <p class="helper-text">Upload repair estimates or invoices.</p>
           </div>
 
           <div class="stack-actions">
-            <button class="btn-brand" type="submit" style="width: 100%;">Submit Claim</button>
+            <button class="btn-brand" type="submit" style="width: 100%;">Submit claim</button>
             <a href="dashboard.html" class="btn-soft" style="width: 100%;">Cancel</a>
           </div>
         </form>

@@ -1,2 +1,0 @@
-USE drivesure_db;
-ALTER TABLE UPLOADED_EVIDENCE ADD COLUMN file_category VARCHAR(50);

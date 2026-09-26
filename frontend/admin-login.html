@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | DriveSure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+  <div class="page-shell">
+    <div class="content-wrap auth-shell">
+      <section class="auth-copy">
+        <a href="login.html" class="brand">
+          <span class="brand-mark">DS</span>
+          <span class="brand-copy">
+            DriveSure
+            <small>Admin portal</small>
+          </span>
+        </a>
+        <div class="page-head">
+          <div>
+            <span class="section-label">Staff access</span>
+            <h1>Admin login for claim review.</h1>
+            <p>
+              Review pending claims, approve or reject them, and add short notes
+              for customers.
+            </p>
+          </div>
+        </div>
+        <p class="helper-text">
+          Default admin (after you import schema.sql):<br>
+          Email: <strong>admin@drivesure.com</strong><br>
+          Password: <strong>admin123</strong>
+        </p>
+        <p class="helper-text" style="margin-top: 12px;">
+          <a href="login.html" class="nav-link-soft">← Back to customer login</a>
+        </p>
+      </section>
+
+      <section class="auth-card">
+        <span class="pill">Admin only</span>
+        <h2>Staff sign in</h2>
+        <p class="helper-text">Use your admin email and password.</p>
+
+        <form id="adminLoginForm">
+          <div class="input-group-clean">
+            <label class="form-label" for="adminEmail">Admin email</label>
+            <input type="email" id="adminEmail" class="input-clean" placeholder="admin@drivesure.com" required>
+          </div>
+          <div class="input-group-clean">
+            <label class="form-label" for="adminPassword">Password</label>
+            <input type="password" id="adminPassword" class="input-clean" placeholder="Enter admin password" required>
+          </div>
+          <button class="btn-brand" type="submit" style="width: 100%;">Sign in as admin</button>
+        </form>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

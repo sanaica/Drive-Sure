@@ -1,10 +1,11 @@
+/**
+ * Claims page helpers (loads policies + submits claim form)
+ */
+
 async function loadClaimPolicies() {
   const policySelect = document.getElementById("claimPolicySelect");
   const policyHelp = document.getElementById("claimPolicyHelp");
-
-  if (!policySelect || !policyHelp) {
-    return;
-  }
+  if (!policySelect || !policyHelp) return;
 
   const user = getSession();
   const customerId = getCustomerId(user);
@@ -16,17 +17,14 @@ async function loadClaimPolicies() {
   }
 
   try {
-    const data = await sendRequest(`/policies/${customerId}`, {
-      method: "GET"
-    });
-
+    const data = await sendRequest(`/policies/${customerId}`, { method: "GET" });
     const policies = getArrayFromResponse(data, ["policies"]);
     policySelect.innerHTML = "";
 
     if (policies.length === 0) {
       policySelect.innerHTML = '<option value="">No policies found</option>';
       policySelect.disabled = true;
-      policyHelp.textContent = "No saved policies found. Please choose a policy first.";
+      policyHelp.textContent = "No saved policies. Choose a policy first.";
       return;
     }
 
@@ -41,7 +39,7 @@ async function loadClaimPolicies() {
     policies.forEach((policy) => {
       const option = document.createElement("option");
       option.value = policy.policy_id;
-      option.textContent = `${policy.plan_name}${policy.make && policy.model ? ` - ${policy.make} ${policy.model}` : ""}`;
+      option.textContent = `${policy.plan_name}${policy.make && policy.model ? ` – ${policy.make} ${policy.model}` : ""}`;
       policySelect.appendChild(option);
     });
   } catch (error) {
@@ -74,7 +72,7 @@ document.getElementById("claimForm")?.addEventListener("submit", async (e) => {
   formData.append("incident_location", document.getElementById("incidentLocation").value);
   formData.append("incident_casualty", document.getElementById("incidentCasualty").value);
   formData.append("claim_description", document.getElementById("claimDescription").value);
-  
+
   if (damagePicsInput && damagePicsInput.files.length > 0) {
     for (let i = 0; i < damagePicsInput.files.length; i++) {
       formData.append("damage_pics[]", damagePicsInput.files[i]);
@@ -92,7 +90,6 @@ document.getElementById("claimForm")?.addEventListener("submit", async (e) => {
       method: "POST",
       body: formData
     });
-
     alert(data.message);
     window.location.href = "dashboard.html";
   } catch (error) {
