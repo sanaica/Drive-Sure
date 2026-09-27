@@ -1,2 +1,5 @@
+# Python deps for DriveSure (EXIF analyzer + dataset tools)
+# Install once:  pip install -r requirements.txt
+
 Pillow>=10.0.0
 numpy>=1.24.0

@@ -56,16 +56,16 @@ Drive-Sure/
 
 3. **Create the database**  
    - Open http://localhost/phpmyadmin  
-   - Import `database/schema.sql` and `database/alter_evidence_analysis.sql`
+   - Import `database/schema.sql`  
    - Or run the SQL in the SQL tab.
 
-4. **Open the app**  
-   - Customer: http://localhost/Drive-Sure/frontend/login.html  
-   - Admin:    http://localhost/Drive-Sure/frontend/admin-login.html  
-
-5. **Default admin account** (created by schema.sql)  
+4. **Default admin account** (created by schema.sql)  
    - Email: `admin@drivesure.com`  
    - Password: `admin123`
+
+5. **Open the app**  
+   - Customer: http://localhost/Drive-Sure/frontend/login.html  
+   - Admin:    http://localhost/Drive-Sure/frontend/admin-login.html  
 
 The frontend talks to the API at:
 ```

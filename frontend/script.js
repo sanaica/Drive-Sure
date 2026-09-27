@@ -821,7 +821,9 @@ function renderAdminClaims(claims) {
         ${c.admin_note ? `<span><strong>Note:</strong> ${c.admin_note}</span>` : ""}
       </div>
       ${buildEvidenceHtml(c.evidence)}
+      <div id="ai-score-${c.claim_id}" class="ai-score-box hidden"></div>
       <div class="claim-actions">
+        <button class="btn-soft" type="button" data-score="${c.claim_id}">Get AI score</button>
         ${c.status !== "Approved" ? `<button class="btn-brand" type="button" data-approve="${c.claim_id}">Approve</button>` : ""}
         ${c.status !== "Rejected" ? `<button class="btn-danger" type="button" data-reject="${c.claim_id}">Reject</button>` : ""}
       </div>
@@ -834,6 +836,9 @@ function renderAdminClaims(claims) {
   });
   grid.querySelectorAll("[data-reject]").forEach((btn) => {
     btn.addEventListener("click", () => updateClaimStatus(btn.dataset.reject, "Rejected"));
+  });
+  grid.querySelectorAll("[data-score]").forEach((btn) => {
+    btn.addEventListener("click", () => requestClaimScore(btn.dataset.score, btn));
   });
 }
 
@@ -895,6 +900,65 @@ async function updateClaimStatus(claimId, status) {
     loadAdminClaims();
   } catch (err) {
     alert(err.message);
+  }
+}
+
+/**
+ * On-demand score for ONE claim from YOUR live DB.
+ * Default = free local rules (no API credits).
+ * Optional confirm dialog can request Groq if server has GROQ_API_KEY.
+ */
+async function requestClaimScore(claimId, buttonEl) {
+  const box = document.getElementById(`ai-score-${claimId}`);
+  if (!box) return;
+
+  if (!confirm("Get confidence score for this claim from your database?\n\nOK = continue\nCancel = abort")) {
+    return;
+  }
+
+  // Cancel on this dialog = free local score; OK = try Groq (needs API key on server)
+  const callGroq = confirm(
+    "Use Groq AI for this score?\n\n" +
+    "OK = yes (uses API credits)\n" +
+    "Cancel = free local score only (recommended)"
+  );
+
+  const oldLabel = buttonEl?.textContent;
+  if (buttonEl) {
+    buttonEl.disabled = true;
+    buttonEl.textContent = "Scoring…";
+  }
+
+  try {
+    const data = await sendRequest("/admin/claims/score", {
+      method: "POST",
+      body: JSON.stringify({ claim_id: claimId, use_groq: callGroq })
+    });
+
+    const sc = scoreClass(data.confidence_score);
+    const reasons = Array.isArray(data.reasons)
+      ? data.reasons.map((r) => `<li>${r}</li>`).join("")
+      : "";
+
+    box.classList.remove("hidden");
+    box.innerHTML = `
+      <strong>Claim confidence</strong>
+      <span class="score-badge ${sc}">${data.confidence_score ?? "N/A"}/100 · ${data.suggested_status || "Review"}</span>
+      <p class="helper-text">Source: ${data.source || "local"}${data.model_used ? ` · ${data.model_used}` : ""}${data.avg_exif_score != null ? ` · Avg EXIF ${data.avg_exif_score}/100` : ""}${data.rag_count != null ? ` · RAG ${data.rag_count}` : ""}${data.images_sent != null ? ` · Images ${data.images_sent}` : ""}${data.vision_used ? " · vision" : ""}</p>
+      ${data.vision_summary ? `<p class="helper-text"><strong>Vision:</strong> ${data.vision_summary}</p>` : ""}
+      ${reasons ? `<ul class="list-clean score-reasons">${reasons}</ul>` : ""}
+      ${data.note ? `<p class="helper-text">${data.note}</p>` : ""}
+      ${data.groq_error ? `<p class="helper-text"><strong>Groq error:</strong> ${data.groq_error}</p>` : ""}
+      ${data.groq_raw ? `<pre class="helper-text" style="white-space:pre-wrap;font-size:0.75rem;max-height:120px;overflow:auto;">${String(data.groq_raw).replace(/</g,'&lt;')}</pre>` : ""}
+    `;
+  } catch (err) {
+    box.classList.remove("hidden");
+    box.innerHTML = `<strong>Score failed</strong><p class="helper-text">${err.message}</p>`;
+  } finally {
+    if (buttonEl) {
+      buttonEl.disabled = false;
+      buttonEl.textContent = oldLabel || "Get AI score";
+    }
   }
 }
 

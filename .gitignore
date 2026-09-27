@@ -13,8 +13,6 @@ Desktop.ini
 
 # ---- Environment / secrets ----
 .env
-.env.*
-!.env.example
 
 # ---- PHP / Composer (if you add later) ----
 /vendor/
